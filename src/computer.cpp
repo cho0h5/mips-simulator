@@ -22,7 +22,7 @@ bool Computer::step() {
 
 bool Computer::step_syscall(Instruction instruction) {
 	(void)instruction;
-	(void)registers[0];
+	(void)registers;
 	return false;
 }
 

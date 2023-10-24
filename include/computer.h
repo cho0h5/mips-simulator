@@ -3,6 +3,7 @@
 
 #include <computer.h>
 #include <memory.h>
+#include <registers.h>
 
 class Computer {
 	public:
@@ -12,7 +13,7 @@ class Computer {
 
 	private:
 	Memory *memory;
-	uint32_t registers[32];
+	Registers registers;
 	uint32_t pc;
 
 	bool step_syscall(Instruction instruction);

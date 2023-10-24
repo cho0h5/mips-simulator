@@ -1,11 +1,11 @@
 NAME = mipsvm
 CC = g++
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
-SRCS = src/main.cpp src/memory.cpp src/computer.cpp
+SRCS = src/main.cpp src/memory.cpp src/computer.cpp src/registers.cpp
 OBJS = $(SRCS:.cpp=.o)
 SRC_DIR = ./src
 INCLUDE = -Iinclude/
-HEADERS = include/memory.h include/computer.h
+HEADERS = include/memory.h include/computer.h include/registers.h
 
 all: $(NAME)
 
