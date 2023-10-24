@@ -23,8 +23,12 @@ bool Computer::step() {
 }
 
 bool Computer::step_syscall() {
-	if (registers.unsigned_get(V0) == 1) {
-		cout << registers.signed_get(A0);
+	switch (registers.unsigned_get(V0)) {
+		case 1:
+			cout << registers.signed_get(A0);
+			break;
+		case 10:
+			return true;
 	}
 	return false;
 }

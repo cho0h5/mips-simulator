@@ -20,9 +20,9 @@ int main(int argc, char **argv) {
 	cout << "[info] program loaded\n";
 
 	Computer computer(memory);
-	computer.step();
-	computer.step();
-	computer.step();
+	cout << "[info] start computer\n";
+	computer.run();
+	cout << "[info] terminated\n";
 
 	return 0;
 }

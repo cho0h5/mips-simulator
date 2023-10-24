@@ -7,15 +7,17 @@ void generate_file(int n, unsigned int *instructions);
 
 int main() {
 	unsigned int instructions[100];
+	int n = 5;
 	instructions[0] = 0b00100000000001000000010011000010;
 	instructions[1] = 0b00100000000000100000000000000001;
 	instructions[2] = 0b00000000000000000000000000001100;
+	instructions[3] = 0b00100000000000100000000000001010;
+	instructions[4] = 0b00000000000000000000000000001100;
 
-	printf("0x%08x\n", instructions[0]);
-	printf("0x%08x\n", instructions[1]);
-	printf("0x%08x\n", instructions[2]);
+	for (int i = 0; i < n; i++)
+		printf("0x%08x\n", instructions[i]);
 
-	generate_file(3, instructions);
+	generate_file(n, instructions);
 
 	return 0;
 }
