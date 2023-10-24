@@ -4,7 +4,7 @@ void Computer::run() {
 	while(!step()) {}
 }
 
-bool step() {
+bool Computer::step() {
 	Instruction instruction = memory->fetch_instruction(pc);
 	pc += 4;
 
@@ -21,7 +21,11 @@ bool step() {
 }
 
 bool Computer::step_syscall(Instruction instruction) {
+	(void)instruction;
+	(void)registers[0];
+	return false;
 }
 
 void Computer::step_addi(Instruction instruction) {
+	(void)instruction;
 }

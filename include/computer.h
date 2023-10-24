@@ -17,6 +17,6 @@ class Computer {
 
 	bool step_syscall(Instruction instruction);
 	void step_addi(Instruction instruction);
-}
+};
 
 #endif
