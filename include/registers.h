@@ -45,13 +45,21 @@ class Registers {
 	void set(RegisterName register_name, uint32_t value);
 
 	uint32_t get_pc();
+	void set_pc(uint32_t address);
 	void increase_pc();
 	void i_format_jump(int16_t branch_addr);
 	void j_format_jump(uint32_t branch_addr);
 
+	void set_lo(uint32_t value);
+	void set_hi(uint32_t value);
+	uint32_t get_lo();
+	uint32_t get_hi();
+
 	private:
 	uint32_t general_registers[32];
 	uint32_t pc;
+	uint32_t lo;
+	uint32_t hi;
 };
 
 #endif
