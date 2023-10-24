@@ -14,6 +14,9 @@ class Computer {
 	Memory *memory;
 	uint32_t registers[32];
 	uint32_t pc;
+
+	bool step_syscall(Instruction instruction);
+	void step_addi(Instruction instruction);
 }
 
 #endif
