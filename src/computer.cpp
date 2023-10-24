@@ -24,11 +24,14 @@ bool Computer::step() {
 
 bool Computer::step_syscall() {
 	switch (registers.unsigned_get(V0)) {
-		case 1:
+		case 1:		// print integer
 			cout << registers.signed_get(A0);
 			break;
-		case 10:
+		case 10:	// exit
 			return true;
+		case 11:	// print character
+			cout << (char)registers.signed_get(A0);
+			break;
 	}
 	return false;
 }
