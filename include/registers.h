@@ -43,8 +43,11 @@ class Registers {
 	uint32_t unsigned_get(RegisterName register_name);
 	int32_t signed_get(RegisterName register_name);
 	void set(RegisterName register_name, uint32_t value);
+
 	uint32_t get_pc();
 	void increase_pc();
+	void i_format_jump(int16_t branch_addr);
+	void j_format_jump(uint32_t branch_addr);
 
 	private:
 	uint32_t general_registers[32];

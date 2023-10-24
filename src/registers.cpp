@@ -25,3 +25,13 @@ uint32_t Registers::get_pc() {
 void Registers::increase_pc() {
 	pc += 4;
 }
+
+void Registers::i_format_jump(int16_t branch_address) {
+	pc += branch_address;
+}
+
+void Registers::j_format_jump(uint32_t branch_address) {
+	branch_address = branch_address << 2;
+	pc &= 0xF0000000;
+	pc |= branch_address;
+}

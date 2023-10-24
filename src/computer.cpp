@@ -27,17 +27,17 @@ void Computer::step_add(Instruction instruction) {
 }
 
 void Computer::step_addi(Instruction instruction) {
-	int32_t temp = 0;
-	temp += registers.signed_get(instruction.rs);
-	temp += (int16_t)instruction.immediate;
-	registers.set(instruction.rt, temp);
+	int32_t value;
+	value = registers.signed_get(instruction.rs);
+	value += (int16_t)instruction.immediate;
+	registers.set(instruction.rt, value);
 }
 
 void Computer::step_addiu(Instruction instruction) {
-	uint32_t temp = 0;
-	temp += registers.unsigned_get(instruction.rs);
-	temp += (uint16_t)instruction.immediate;
-	registers.set(instruction.rt, temp);
+	uint32_t value;
+	value = registers.unsigned_get(instruction.rs);
+	value += (int16_t)instruction.immediate;
+	registers.set(instruction.rt, value);
 }
 
 void Computer::step_addu(Instruction instruction) {
@@ -49,18 +49,38 @@ void Computer::step_and(Instruction instruction) {
 }
 
 void Computer::step_andi(Instruction instruction) {
+	uint32_t value;
+	value = registers.unsigned_get(instruction.rs);
+	value &= (uint16_t)instruction.immediate;
+	registers.set(instruction.rt, value);
 }
 
 void Computer::step_beq(Instruction instruction) {
+	uint32_t rs = registers.unsigned_get(instruction.rs);
+	uint32_t rt = registers.unsigned_get(instruction.rt);
+
+	if (rs == rt) {
+		registers.i_format_jump((int16_t)instruction.immediate);
+	}
 }
 
 void Computer::step_bne(Instruction instruction) {
+	uint32_t rs = registers.unsigned_get(instruction.rs);
+	uint32_t rt = registers.unsigned_get(instruction.rt);
+
+	if (rs != rt) {
+		registers.i_format_jump((int16_t)instruction.immediate);
+	}
 }
 
 void Computer::step_j(Instruction instruction) {
+	registers.j_format_jump((uint32_t)instruction.address);
 }
 
 void Computer::step_jal(Instruction instruction) {
+	uint32_t pc = registers.get_pc();
+	registers.set(RA, pc);
+	registers.j_format_jump((uint32_t)instruction.address);
 }
 
 void Computer::step_jr(Instruction instruction) {
@@ -68,18 +88,34 @@ void Computer::step_jr(Instruction instruction) {
 }
 
 void Computer::step_lbu(Instruction instruction) {
+	uint32_t address;
+	address = registers.unsigned_get(instruction.rs);
+	address += (int16_t)instruction.immediate;
+	uint8_t value = memory->load_byte_unsigned(address);
+	registers.set(instruction.rt, value);
 }
 
 void Computer::step_lhu(Instruction instruction) {
-}
-
-void Computer::step_ll(Instruction instruction) {
+	uint32_t address;
+	address = registers.unsigned_get(instruction.rs);
+	address += (int16_t)instruction.immediate;
+	uint16_t value = memory->load_halfword_unsigned(address);
+	registers.set(instruction.rt, value);
 }
 
 void Computer::step_lui(Instruction instruction) {
+	int32_t value = 0;
+	value += (uint16_t)instruction.immediate;
+	value = value << 16;
+	registers.set(instruction.rt, value);
 }
 
 void Computer::step_lw(Instruction instruction) {
+	uint32_t address;
+	address = registers.unsigned_get(instruction.rs);
+	address += (int16_t)instruction.immediate;
+	uint32_t value = memory->load_word(address);
+	registers.set(instruction.rt, value);
 }
 
 void Computer::step_nor(Instruction instruction) {
@@ -91,6 +127,10 @@ void Computer::step_or(Instruction instruction) {
 }
 
 void Computer::step_ori(Instruction instruction) {
+	uint32_t value;
+	value = registers.unsigned_get(instruction.rs);
+	value |= (uint16_t)instruction.immediate;
+	registers.set(instruction.rt, value);
 }
 
 void Computer::step_slt(Instruction instruction) {
@@ -98,9 +138,15 @@ void Computer::step_slt(Instruction instruction) {
 }
 
 void Computer::step_slti(Instruction instruction) {
+	int32_t rs = registers.signed_get(instruction.rs);
+	int32_t compare = rs < (int16_t)instruction.immediate;
+	registers.set(instruction.rt, compare);
 }
 
 void Computer::step_sltiu(Instruction instruction) {
+	int32_t rs = registers.signed_get(instruction.rs);
+	int32_t compare = rs < (uint16_t)instruction.immediate;
+	registers.set(instruction.rt, compare);
 }
 
 void Computer::step_sltu(Instruction instruction) {
@@ -116,12 +162,27 @@ void Computer::step_srl(Instruction instruction) {
 }
 
 void Computer::step_sb(Instruction instruction) {
+	uint32_t address;
+	address = registers.unsigned_get(instruction.rs);
+	address += (int16_t)instruction.immediate;
+	uint32_t rt = registers.unsigned_get(instruction.rt);
+	memory->store_byte(address, (uint8_t)rt);
 }
 
 void Computer::step_sh(Instruction instruction) {
+	uint32_t address;
+	address = registers.unsigned_get(instruction.rs);
+	address += (int16_t)instruction.immediate;
+	uint32_t rt = registers.unsigned_get(instruction.rt);
+	memory->store_halfword(address, (uint16_t)rt);
 }
 
 void Computer::step_sw(Instruction instruction) {
+	uint32_t address;
+	address = registers.unsigned_get(instruction.rs);
+	address += (int16_t)instruction.immediate;
+	uint32_t rt = registers.unsigned_get(instruction.rt);
+	memory->store_word(address, (uint32_t)rt);
 }
 
 void Computer::step_sub(Instruction instruction) {

@@ -25,7 +25,6 @@ enum OpCode {
 	OP_JR		= 0b000000,
 	OP_LBU		= 0b100100,
 	OP_LHU		= 0b100101,
-	OP_LL		= 0b110000,
 	OP_LUI		= 0b001111,
 	OP_LW		= 0b100011,
 	OP_NOR		= 0b000000,
@@ -92,6 +91,13 @@ class Memory {
 	bool load_program(std::string filename);
 	Instruction fetch_instruction(int pc);
 	static void print_instruction(Instruction instruction);
+
+	uint8_t load_byte_unsigned(uint32_t address);
+	uint16_t load_halfword_unsigned(uint32_t address);
+	uint32_t load_word(uint32_t address);
+	void store_byte(uint32_t address, uint8_t value);
+	void store_halfword(uint32_t address, uint16_t value);
+	void store_word(uint32_t address, uint32_t value);
 
 	private:
 	uint8_t memory[0x100000000];

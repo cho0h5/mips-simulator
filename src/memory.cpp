@@ -73,3 +73,39 @@ InstructionFormat Memory::categorize_format(OpCode opcode) {
 		return J_FORMAT;
 	return I_FORMAT;
 }
+
+uint8_t Memory::load_byte_unsigned(uint32_t address) {
+	return memory[address];
+}
+
+uint16_t Memory::load_halfword_unsigned(uint32_t address) {
+	uint16_t temp = 0;
+	temp |= memory[address + 0] << 8;
+	temp |= memory[address + 1] << 0;
+	return temp;
+}
+
+uint32_t Memory::load_word(uint32_t address) {
+	uint32_t temp = 0;
+	temp |= memory[address + 0] << 24;
+	temp |= memory[address + 1] << 16;
+	temp |= memory[address + 2] << 8;
+	temp |= memory[address + 3] << 0;
+	return temp;
+}
+
+void Memory::store_byte(uint32_t address, uint8_t value) {
+	memory[address] = value;
+}
+
+void Memory::store_halfword(uint32_t address, uint16_t value) {
+	memory[address + 0] = value >> 8;
+	memory[address + 1] = value >> 0;
+}
+
+void Memory::store_word(uint32_t address, uint32_t value) {
+	memory[address + 0] = value >> 24;
+	memory[address + 1] = value >> 16;
+	memory[address + 2] = value >> 8;
+	memory[address + 3] = value >> 0;
+}

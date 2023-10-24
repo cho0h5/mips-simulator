@@ -28,7 +28,6 @@ class Computer {
 	void step_jr(Instruction instruction);
 	void step_lbu(Instruction instruction);
 	void step_lhu(Instruction instruction);
-	void step_ll(Instruction instruction);
 	void step_lui(Instruction instruction);
 	void step_lw(Instruction instruction);
 	void step_nor(Instruction instruction);
