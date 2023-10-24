@@ -34,7 +34,7 @@ void Computer::step_addi(Instruction instruction) {
 }
 
 void Computer::step_addiu(Instruction instruction) {
-	int32_t temp = 0;
+	uint32_t temp = 0;
 	temp += registers.unsigned_get(instruction.rs);
 	temp += (uint16_t)instruction.immediate;
 	registers.set(instruction.rt, temp);
