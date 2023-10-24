@@ -10,8 +10,6 @@ bool Computer::step() {
 	Instruction instruction = memory->fetch_instruction(registers.get_pc());
 	registers.increase_pc();
 
-	memory->print_instruction(instruction);
-
 	if (instruction.format == R_FORMAT) {
 		if (instruction.funct == FT_SYSCALL) {
 			return step_syscall();
@@ -21,8 +19,6 @@ bool Computer::step() {
 			step_addi(instruction);
 		}
 	}
-	cout << "debug A0: " << registers.unsigned_get(A0) << '\n';
-	cout << "debug V0: " << registers.unsigned_get(V0) << '\n';
 	return 0;
 }
 
