@@ -5,7 +5,7 @@
 
 class Memory {
 	public:
-	void load_program(std::string filename);
+	bool load_program(std::string filename);
 
 	private:
 	uint8_t memory[0xFFFFFFFF];
