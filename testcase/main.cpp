@@ -8,7 +8,7 @@ void generate_file(int n, unsigned int *instructions);
 int main() {
 	unsigned int instructions[100];
 	instructions[0] = 0b00100000000001000000010011000010;
-	instructions[1] = 0b00100000000001000000000000000001;
+	instructions[1] = 0b00100000000000100000000000000001;
 	instructions[2] = 0b00000000000000000000000000001100;
 
 	printf("0x%08x\n", instructions[0]);

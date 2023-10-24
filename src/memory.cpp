@@ -30,14 +30,14 @@ Instruction Memory::fetch_instruction(int pc) {
 	instruction.opcode = (OpCode)(word >> 26);
 	instruction.format = categorize_format(instruction.opcode);
 	if (instruction.format == R_FORMAT) {
-		instruction.rs = (word >> 21) & 0b11111;
-		instruction.rt = (word >> 16) & 0b11111;
-		instruction.rd = (word >> 11) & 0b11111;
+		instruction.rs = (RegisterName)((word >> 21) & 0b11111);
+		instruction.rt = (RegisterName)((word >> 16) & 0b11111);
+		instruction.rd = (RegisterName)((word >> 11) & 0b11111);
 		instruction.shamt = (word >> 6) & 0b11111;
 		instruction.funct = (Funct)((word >> 0) & 0b111111);
 	} else if (instruction.format == I_FORMAT) {
-		instruction.rs = (word >> 21) & 0b11111;
-		instruction.rt = (word >> 16) & 0b11111;
+		instruction.rs = (RegisterName)((word >> 21) & 0b11111);
+		instruction.rt = (RegisterName)((word >> 16) & 0b11111);
 		instruction.immediate = (word >> 0) & 0xFFFF;
 	} else {
 		instruction.address = word & 0x03FFFFFF;

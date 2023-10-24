@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include <registers.h>
+
 enum InstructionFormat {
 	R_FORMAT,
 	I_FORMAT,
@@ -76,9 +78,9 @@ enum Funct {
 struct Instruction {
 	InstructionFormat	format;
 	OpCode				opcode;
-	uint8_t				rs;
-	uint8_t				rt;
-	uint8_t				rd;
+	RegisterName		rs;
+	RegisterName		rt;
+	RegisterName		rd;
 	uint8_t				shamt;
 	Funct				funct;
 	uint16_t			immediate;

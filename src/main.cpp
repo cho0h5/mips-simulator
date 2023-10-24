@@ -2,6 +2,7 @@
 #include <cstdint>
 
 #include <memory.h>
+#include <computer.h>
 
 using namespace std;
 
@@ -18,9 +19,10 @@ int main(int argc, char **argv) {
 	}
 	cout << "[info] program loaded\n";
 
-	memory->print_instruction(memory->fetch_instruction(0));
-	memory->print_instruction(memory->fetch_instruction(4));
-	memory->print_instruction(memory->fetch_instruction(8));
+	Computer computer(memory);
+	computer.step();
+	computer.step();
+	computer.step();
 
 	return 0;
 }

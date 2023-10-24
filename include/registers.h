@@ -4,7 +4,7 @@
 #include <iostream>
 
 enum RegisterName {
-	ZERO,
+	ZERO = 0,
 	AT,
 	V0,
 	V1,

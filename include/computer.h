@@ -15,7 +15,7 @@ class Computer {
 	Memory *memory;
 	Registers registers;
 
-	bool step_syscall(Instruction instruction);
+	bool step_syscall();
 	void step_addi(Instruction instruction);
 };
 
