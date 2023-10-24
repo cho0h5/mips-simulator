@@ -18,5 +18,9 @@ int main(int argc, char **argv) {
 	}
 	cout << "[info] program loaded\n";
 
+	memory->print_instruction(memory->fetch_instruction(0));
+	memory->print_instruction(memory->fetch_instruction(4));
+	memory->print_instruction(memory->fetch_instruction(8));
+
 	return 0;
 }
