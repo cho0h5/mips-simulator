@@ -15,6 +15,9 @@ $(NAME): $(OBJS)
 $(SRC_DIR)/%.o: $(SRC_DIR)/%.cpp $(HEADERS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
+test:
+	./$(NAME) testcase/print_1218.bin
+
 clean:
 	rm -rf $(OBJS)
 
