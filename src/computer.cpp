@@ -11,7 +11,9 @@ bool Computer::step() {
 	registers.increase_pc();
 
 	if (instruction.format == R_FORMAT) {
-		if (instruction.funct == FT_SYSCALL) {
+		if (instruction.funct == FT_ADD) {
+			step_add(instruction);
+		} else if (instruction.funct == FT_SYSCALL) {
 			return step_syscall();
 		}
 	} else {
