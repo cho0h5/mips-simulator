@@ -36,7 +36,7 @@ enum RegisterName {
 
 #[derive(Debug, Copy, Clone)]
 enum OpCode {
-    RFORMAT  = 0b000000,
+    RFORMAT = 0b000000,
 	ADDI	= 0b001000,
 	ADDIU	= 0b001001,
 	ANDI	= 0b001100,
@@ -132,7 +132,7 @@ impl Convert for IFormat {
         instruction = (self.opcode as u32 & 0b111111) << 26;
         instruction |= (self.rs as u32 & 0b11111) << 21;
         instruction |= (self.rt as u32 & 0b11111) << 16;
-        instruction |= (self.immediate as u32) << 0;
+        instruction |= (self.immediate as u16 as u32) << 0;
         instruction
     }
 }
@@ -190,10 +190,100 @@ use Funct::*;
 
 fn main() {
     let instructions = [
-        I(IFormat {opcode: ADDI, rs: ZERO, rt: A0, immediate: 10}),             // A2 = 10
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: A2, immediate: 10}),             // A2 = 10
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: A1, immediate: 0}),             // A2 = 10
 
-        I(IFormat {opcode: ADDI, rs: A0, rt: A0, immediate: -1}),              // V0 = 1
+        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 11}),             // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        R(RFormat {rs: A2, rt: A1, rd: A1, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: A2, rt: A2, immediate: -1}),             // A2 = 10
 
+        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 11}),             // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        R(RFormat {rs: A2, rt: A1, rd: A1, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: A2, rt: A2, immediate: -1}),             // A2 = 10
+
+        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 11}),             // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        R(RFormat {rs: A2, rt: A1, rd: A1, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: A2, rt: A2, immediate: -1}),             // A2 = 10
+
+        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 11}),             // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        R(RFormat {rs: A2, rt: A1, rd: A1, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: A2, rt: A2, immediate: -1}),             // A2 = 10
+
+        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 11}),             // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        R(RFormat {rs: A2, rt: A1, rd: A1, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: A2, rt: A2, immediate: -1}),             // A2 = 10
+
+        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 11}),             // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        R(RFormat {rs: A2, rt: A1, rd: A1, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: A2, rt: A2, immediate: -1}),             // A2 = 10
+
+        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 11}),             // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        R(RFormat {rs: A2, rt: A1, rd: A1, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: A2, rt: A2, immediate: -1}),             // A2 = 10
+
+        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 11}),             // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        R(RFormat {rs: A2, rt: A1, rd: A1, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: A2, rt: A2, immediate: -1}),             // A2 = 10
+
+        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 11}),             // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        R(RFormat {rs: A2, rt: A1, rd: A1, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: A2, rt: A2, immediate: -1}),             // A2 = 10
+
+        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
+        I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 11}),             // V0 = 1
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        R(RFormat {rs: A2, rt: A1, rd: A1, shamt: 0, funct: Add}),    // syscall
+        I(IFormat {opcode: ADDI, rs: A2, rt: A2, immediate: -1}),             // A2 = 10
+
+        R(RFormat {rs: A1, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
         I(IFormat {opcode: ADDI, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
         R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
         I(IFormat {opcode: ADDI, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
