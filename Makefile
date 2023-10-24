@@ -1,18 +1,18 @@
-NAME = mips_simulator
+NAME = mipsvm
 CC = g++
-CFLAGS = -Wall -Wextra -Werror
-SRCS = src/main.cpp
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+SRCS = src/main.cpp src/memory.cpp
 OBJS = $(SRCS:.cpp=.o)
-SRC_DIR = ./srcs
-INCLUDE = -Iincludes/
-HEADERS = 
+SRC_DIR = ./src
+INCLUDE = -Iinclude/
+HEADERS = include/memory.h
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(SRC_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.cpp $(HEADERS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
