@@ -5,8 +5,8 @@ void Computer::run() {
 }
 
 bool Computer::step() {
-	Instruction instruction = memory->fetch_instruction(pc);
-	pc += 4;
+	Instruction instruction = memory->fetch_instruction(registers.get_pc());
+	registers.increase_pc();
 
 	if (instruction.format == R_FORMAT) {
 		if (instruction.funct == FT_SYSCALL) {

@@ -7,14 +7,13 @@
 
 class Computer {
 	public:
-	Computer(Memory *memory): memory(memory), pc(0) {}
+	Computer(Memory *memory): memory(memory) {}
 	void run();
 	bool step();
 
 	private:
 	Memory *memory;
 	Registers registers;
-	uint32_t pc;
 
 	bool step_syscall(Instruction instruction);
 	void step_addi(Instruction instruction);
