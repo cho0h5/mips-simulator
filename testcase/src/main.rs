@@ -199,34 +199,34 @@ use Funct::*;
 
 fn main() {
     let instructions = [
-        I(IFormat {opcode: Addi, rs: ZERO, rt: A2, immediate: 10}),             // A2 = 10
-        I(IFormat {opcode: Addi, rs: ZERO, rt: A1, immediate: 0}),             // A2 = 10
+        I(IFormat {opcode: Addi, rs: ZERO, rt: A2, immediate: 10}),
+        I(IFormat {opcode: Addi, rs: ZERO, rt: A1, immediate: 0}),
 
-        R(RFormat {rs: ZERO, rt: A2, rd: T0, shamt: 0, funct: Slt}),    // syscall
-        I(IFormat {opcode: Beq, rs: ZERO, rt: T0, immediate: 10}),              // V0 = 1
+        R(RFormat {rs: ZERO, rt: A2, rd: T0, shamt: 0, funct: Slt}),
+        I(IFormat {opcode: Beq, rs: ZERO, rt: T0, immediate: 10}),
 
         // print a2 and decrease
-        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
-        I(IFormat {opcode: Addi, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
-        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
-        I(IFormat {opcode: Addi, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
-        I(IFormat {opcode: Addi, rs: ZERO, rt: V0, immediate: 11}),             // V0 = 1
-        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
-        R(RFormat {rs: A2, rt: A1, rd: A1, shamt: 0, funct: Add}),    // syscall
-        I(IFormat {opcode: Addi, rs: A2, rt: A2, immediate: -1}),             // A2 = 10
+        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),
+        I(IFormat {opcode: Addi, rs: ZERO, rt: V0, immediate: 1}),
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),
+        I(IFormat {opcode: Addi, rs: ZERO, rt: A0, immediate: '\n' as i16}),
+        I(IFormat {opcode: Addi, rs: ZERO, rt: V0, immediate: 11}),
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),
+        R(RFormat {rs: A2, rt: A1, rd: A1, shamt: 0, funct: Add}),
+        I(IFormat {opcode: Addi, rs: A2, rt: A2, immediate: -1}),
 
         J(JFormat {opcode: Jump, address: 2}),
 
         // print sum(a1)
-        R(RFormat {rs: A1, rt: ZERO, rd: A0, shamt: 0, funct: Add}),    // syscall
-        I(IFormat {opcode: Addi, rs: ZERO, rt: V0, immediate: 1}),              // V0 = 1
-        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
-        I(IFormat {opcode: Addi, rs: ZERO, rt: A0, immediate: '\n' as i16}),    // A0 = '\n'
-        I(IFormat {opcode: Addi, rs: ZERO, rt: V0, immediate: 11}),             // V0 = 1
-        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        R(RFormat {rs: A1, rt: ZERO, rd: A0, shamt: 0, funct: Add}),
+        I(IFormat {opcode: Addi, rs: ZERO, rt: V0, immediate: 1}),
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),
+        I(IFormat {opcode: Addi, rs: ZERO, rt: A0, immediate: '\n' as i16}),
+        I(IFormat {opcode: Addi, rs: ZERO, rt: V0, immediate: 11}),
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),
 
-        I(IFormat {opcode: Addi, rs: ZERO, rt: V0, immediate: 10}),             // V0 = 10
-        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
+        I(IFormat {opcode: Addi, rs: ZERO, rt: V0, immediate: 10}),
+        R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),
     ];
 
     if let Ok(_) = write_binary_file(&instructions) {
