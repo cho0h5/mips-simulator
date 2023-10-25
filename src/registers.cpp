@@ -31,13 +31,14 @@ void Registers::increase_pc() {
 }
 
 void Registers::i_format_jump(int16_t branch_address) {
-	pc += branch_address;
+	int32_t address = branch_address << 2;
+	pc += address;
 }
 
 void Registers::j_format_jump(uint32_t branch_address) {
-	branch_address = branch_address << 2;
+	int32_t address = branch_address << 2;
 	pc &= 0xF0000000;
-	pc |= branch_address;
+	pc |= address;
 }
 
 void Registers::set_lo(uint32_t value) {

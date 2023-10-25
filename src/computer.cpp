@@ -13,12 +13,18 @@ bool Computer::step() {
 	if (instruction.format == R_FORMAT) {
 		if (instruction.funct == FT_ADD) {
 			step_add(instruction);
+		} else if (instruction.funct == FT_SLT) {
+			step_slt(instruction);
 		} else if (instruction.funct == FT_SYSCALL) {
 			return step_syscall();
 		}
 	} else {
 		if (instruction.opcode == OP_ADDI) {
 			step_addi(instruction);
+		} else if (instruction.opcode == OP_BEQ) {
+			step_beq(instruction);
+		} else if (instruction.opcode == OP_J) {
+			step_j(instruction);
 		}
 	}
 	return 0;
