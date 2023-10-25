@@ -199,14 +199,14 @@ use Funct::*;
 
 fn main() {
     let instructions = [
-        I(IFormat {opcode: Addi, rs: ZERO, rt: A2, immediate: 10}),
+        I(IFormat {opcode: Addi, rs: ZERO, rt: A2, immediate: 100}),
         I(IFormat {opcode: Addi, rs: ZERO, rt: A1, immediate: 0}),
 
         R(RFormat {rs: ZERO, rt: A2, rd: T0, shamt: 0, funct: Slt}),
-        I(IFormat {opcode: Beq, rs: ZERO, rt: T0, immediate: 10}),
+        I(IFormat {opcode: Beq, rs: ZERO, rt: T0, immediate: 9}),
 
         // print a2 and decrease
-        R(RFormat {rs: A2, rt: ZERO, rd: A0, shamt: 0, funct: Add}),
+        R(RFormat {rs: A1, rt: ZERO, rd: A0, shamt: 0, funct: Add}),
         I(IFormat {opcode: Addi, rs: ZERO, rt: V0, immediate: 1}),
         R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),
         I(IFormat {opcode: Addi, rs: ZERO, rt: A0, immediate: '\n' as i16}),
