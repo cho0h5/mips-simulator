@@ -11,20 +11,123 @@ bool Computer::step() {
 	registers.increase_pc();
 
 	if (instruction.format == R_FORMAT) {
-		if (instruction.funct == FT_ADD) {
-			step_add(instruction);
-		} else if (instruction.funct == FT_SLT) {
-			step_slt(instruction);
-		} else if (instruction.funct == FT_SYSCALL) {
-			return step_syscall();
+		switch (instruction.funct) {
+			case FT_ADD:
+				step_add(instruction);
+				break;
+			case FT_ADDU:
+				step_addu(instruction);
+				break;
+			case FT_AND:
+				step_and(instruction);
+				break;
+			case FT_JR:
+				step_jr(instruction);
+				break;
+			case FT_NOR:
+				step_nor(instruction);
+				break;
+			case FT_OR:
+				step_or(instruction);
+				break;
+			case FT_SLT:
+				step_slt(instruction);
+				break;
+			case FT_SLTU:
+				step_sltu(instruction);
+				break;
+			case FT_SLL:
+				step_sll(instruction);
+				break;
+			case FT_SRL:
+				step_srl(instruction);
+				break;
+			case FT_SUB:
+				step_sub(instruction);
+				break;
+			case FT_SUBU:
+				step_subu(instruction);
+				break;
+			case FT_DIV:
+				step_div(instruction);
+				break;
+			case FT_DIVU:
+				step_divu(instruction);
+				break;
+			case FT_MFHI:
+				step_mfhi(instruction);
+				break;
+			case FT_MFLO:
+				step_mflo(instruction);
+				break;
+			case FT_MULT:
+				step_mult(instruction);
+				break;
+			case FT_MULTU:
+				step_multu(instruction);
+				break;
+			case FT_SRA:
+				step_sra(instruction);
+				break;
+			case FT_SYSCALL:
+				return step_syscall();
+				break;
 		}
 	} else {
-		if (instruction.opcode == OP_ADDI) {
-			step_addi(instruction);
-		} else if (instruction.opcode == OP_BEQ) {
-			step_beq(instruction);
-		} else if (instruction.opcode == OP_J) {
-			step_j(instruction);
+		switch (instruction.opcode) {
+			case OP_ADDI:
+				step_addi(instruction);
+				break;
+			case OP_ADDIU:
+				step_addiu(instruction);
+				break;
+			case OP_ANDI:
+				step_andi(instruction);
+				break;
+			case OP_BEQ:
+				step_beq(instruction);
+				break;
+			case OP_BNE:
+				step_bne(instruction);
+				break;
+			case OP_J:
+				step_j(instruction);
+				break;
+			case OP_JAL:
+				step_jal(instruction);
+				break;
+			case OP_LBU:
+				step_lbu(instruction);
+				break;
+			case OP_LHU:
+				step_lhu(instruction);
+				break;
+			case OP_LUI:
+				step_lui(instruction);
+				break;
+			case OP_LW:
+				step_lw(instruction);
+				break;
+			case OP_ORI:
+				step_ori(instruction);
+				break;
+			case OP_SLTI:
+				step_slti(instruction);
+				break;
+			case OP_SLTIU:
+				step_sltiu(instruction);
+				break;
+			case OP_SB:
+				step_sb(instruction);
+				break;
+			case OP_SH:
+				step_sh(instruction);
+				break;
+			case OP_SW:
+				step_sw(instruction);
+				break;
+			default:
+				break;
 		}
 	}
 	return 0;
