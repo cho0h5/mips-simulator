@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 #[derive(Debug, Copy, Clone)]
 enum RegisterName {
 	ZERO,
@@ -34,6 +35,7 @@ enum RegisterName {
 	RA,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Copy, Clone)]
 enum OpCode {
     Rformat = 0b000000,
@@ -56,6 +58,7 @@ enum OpCode {
 	Sw		= 0b101011,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Copy, Clone)]
 enum Funct {
 	Add		= 0b100000,
@@ -80,6 +83,7 @@ enum Funct {
 	Syscall	= 0b001100,
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 enum Instruction {
     R(RFormat),
@@ -97,6 +101,7 @@ impl Convert for Instruction {
     }
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct RFormat {
     rs: RegisterName,
@@ -118,6 +123,7 @@ impl Convert for RFormat {
     }
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct IFormat {
     opcode: OpCode,
@@ -126,6 +132,7 @@ struct IFormat {
     immediate: i16,
 }
 
+#[allow(dead_code)]
 impl Convert for IFormat {
     fn convert(&self) -> u32 {
         let mut instruction: u32;
@@ -137,6 +144,7 @@ impl Convert for IFormat {
     }
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct JFormat {
     opcode: OpCode,
@@ -162,6 +170,7 @@ fn write_binary_file(instructions: &[Instruction]) -> Result<(), std::io::Error>
     use std::path::Path;
 
     println!("write binary file");
+    println!("--------");
 
     let path = Path::new("example.bin");
 
@@ -171,14 +180,14 @@ fn write_binary_file(instructions: &[Instruction]) -> Result<(), std::io::Error>
         let bin = instruction.convert();
         println!("{:08x}", bin);
 
-        let mut buf: [u8; 4] = [
+        let buf: [u8; 4] = [
             (bin >> 24) as u8,
             (bin >> 16) as u8,
             (bin >> 8) as u8,
             (bin >> 0) as u8,
         ];
 
-        file.write(&buf);
+        file.write(&buf)?;
     }
     Ok(())
 }
@@ -220,7 +229,10 @@ fn main() {
         R(RFormat {rs: ZERO, rt: ZERO, rd: ZERO, shamt: 0, funct: Syscall}),    // syscall
     ];
 
-    if let Err(_) = write_binary_file(&instructions) {
+    if let Ok(_) = write_binary_file(&instructions) {
+        println!("--------");
+        println!("done");
+    } else {
         println!("failed");
     };
 }
