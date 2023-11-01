@@ -12,9 +12,6 @@ fn write_binary_file(instructions: &[Instruction]) -> Result<(), std::io::Error>
     use std::io::prelude::*;
     use std::path::Path;
 
-    println!("write binary file");
-    println!("--------");
-
     let path = Path::new("example.bin");
 
     let mut file = File::create(&path)?;
@@ -40,14 +37,14 @@ fn main() {
     let instructions = [
         IFormat::new(Addi, ZERO, A0, 5),
         JFormat::new(Jal, 10),
-        RFormat::new(V0, ZERO, A0, 0, Add),
+        RFormat::new(Add, V0, ZERO, A0, 0),
         IFormat::new(Addi, ZERO, V0, 1),
-        RFormat::new(ZERO, ZERO, ZERO, 0, Syscall),
+        RFormat::new(Syscall, ZERO, ZERO, ZERO, 0),
         IFormat::new(Addi, ZERO, A0, '\n' as i16),
         IFormat::new(Addi, ZERO, V0, 11),
-        RFormat::new(ZERO, ZERO, ZERO, 0, Syscall),
+        RFormat::new(Syscall, ZERO, ZERO, ZERO, 0),
         IFormat::new(Addi, ZERO, V0, 10),
-        RFormat::new(ZERO, ZERO, ZERO, 0, Syscall),
+        RFormat::new(Syscall, ZERO, ZERO, ZERO, 0),
 
         IFormat::new(Addi, SP, SP, -8), // fact
         IFormat::new(Sw, SP, RA, 4),
@@ -56,17 +53,19 @@ fn main() {
         IFormat::new(Beq, ZERO, T0, 3),
         IFormat::new(Addi, ZERO, V0, 1),
         IFormat::new(Addi, SP, SP, 8),
-        RFormat::new(RA, ZERO, ZERO, 0, Jr),
+        RFormat::new(Jr, RA, ZERO, ZERO, 0),
         IFormat::new(Addi, A0, A0, -1), // L1
         JFormat::new(Jal, 10),
         IFormat::new(Lw, SP, A0, 0),
         IFormat::new(Lw, SP, RA, 4),
         IFormat::new(Addi, SP, SP, 8),
-        RFormat::new(A0, V0, ZERO, 0, Mult),
-        RFormat::new(ZERO, ZERO, V0, 0, Mflo),
-        RFormat::new(RA, ZERO, ZERO, 0, Jr),
+        RFormat::new(Mult, A0, V0, ZERO, 0),
+        RFormat::new(Mflo, ZERO, ZERO, V0, 0),
+        RFormat::new(Jr, RA, ZERO, ZERO, 0),
     ];
 
+    println!("write binary file");
+    println!("--------");
     if let Ok(_) = write_binary_file(&instructions) {
         println!("--------");
         println!("done");

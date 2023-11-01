@@ -115,8 +115,8 @@ pub struct RFormat {
 
 #[allow(dead_code)]
 impl RFormat {
-    pub fn new(rs: RegisterName, rt: RegisterName, rd: RegisterName,
-        shamt: u8, funct: Funct) -> Instruction {
+    pub fn new(funct: Funct, rs: RegisterName, rt: RegisterName,
+        rd: RegisterName, shamt: u8) -> Instruction {
         R(RFormat {rs, rt, rd, shamt, funct})
     }
 }
