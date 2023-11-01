@@ -1,5 +1,15 @@
 #include <registers.h>
 
+Registers::Registers() {
+	for (int i = 0; i < 32; i++) {
+		general_registers[i] = 0;
+	}
+	general_registers[SP] = 0xFFFFFFFC;
+	pc = 0;
+	lo = 0;
+	hi = 0;
+}
+
 uint32_t Registers::unsigned_get(RegisterName register_name) {
 	if (register_name == ZERO)
 		return (uint32_t)0;

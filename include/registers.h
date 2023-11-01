@@ -40,6 +40,7 @@ enum RegisterName {
 
 class Registers {
 	public:
+	Registers();
 	uint32_t unsigned_get(RegisterName register_name);
 	int32_t signed_get(RegisterName register_name);
 	void set(RegisterName register_name, uint32_t value);
