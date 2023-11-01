@@ -38,10 +38,13 @@ fn write_binary_file(instructions: &[Instruction]) -> Result<(), std::io::Error>
 fn main() {
     // RFormat::new(ZERO, A2, T0,  0, Slt)
     let instructions = [
-        IFormat::new(Addi, ZERO, A0, 0),
-        JFormat::new(Jal, 7),
+        IFormat::new(Addi, ZERO, A0, 5),
+        JFormat::new(Jal, 10),
         RFormat::new(V0, ZERO, A0, 0, Add),
         IFormat::new(Addi, ZERO, V0, 1),
+        RFormat::new(ZERO, ZERO, ZERO, 0, Syscall),
+        IFormat::new(Addi, ZERO, A0, '\n' as i16),
+        IFormat::new(Addi, ZERO, V0, 11),
         RFormat::new(ZERO, ZERO, ZERO, 0, Syscall),
         IFormat::new(Addi, ZERO, V0, 10),
         RFormat::new(ZERO, ZERO, ZERO, 0, Syscall),
@@ -55,11 +58,12 @@ fn main() {
         IFormat::new(Addi, SP, SP, 8),
         RFormat::new(RA, ZERO, ZERO, 0, Jr),
         IFormat::new(Addi, A0, A0, -1), // L1
-        JFormat::new(Jal, 7),
+        JFormat::new(Jal, 10),
         IFormat::new(Lw, SP, A0, 0),
         IFormat::new(Lw, SP, RA, 4),
         IFormat::new(Addi, SP, SP, 8),
-        RFormat::new(A0, V0, V0, 0, Mult),
+        RFormat::new(A0, V0, ZERO, 0, Mult),
+        RFormat::new(ZERO, ZERO, V0, 0, Mflo),
         RFormat::new(RA, ZERO, ZERO, 0, Jr),
     ];
 
