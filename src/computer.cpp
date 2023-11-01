@@ -141,11 +141,12 @@ void Computer::step_add(Instruction instruction) {
 }
 
 void Computer::step_addi(Instruction instruction) {
-	cout << "[debug] addi\n";
+	cout << "[debug] addi ";
 	int32_t value;
 	value = registers.signed_get(instruction.rs);
 	value += (int16_t)instruction.immediate;
 	registers.set(instruction.rt, value);
+	cout << value << '\n';
 }
 
 void Computer::step_addiu(Instruction instruction) {
@@ -281,10 +282,11 @@ void Computer::step_slt(Instruction instruction) {
 }
 
 void Computer::step_slti(Instruction instruction) {
-	cout << "[debug] slti\n";
+	cout << "[debug] slti ";
 	int32_t rs = registers.signed_get(instruction.rs);
 	int32_t compare = rs < (int16_t)instruction.immediate;
 	registers.set(instruction.rt, compare);
+	cout << compare << '\n';
 }
 
 void Computer::step_sltiu(Instruction instruction) {
@@ -383,12 +385,13 @@ void Computer::step_mflo(Instruction instruction) {
 }
 
 void Computer::step_mult(Instruction instruction) {
-	cout << "[debug] mult\n";
+	cout << "[debug] mult ";
 	int32_t rs = registers.signed_get(instruction.rs);
 	int32_t rt = registers.signed_get(instruction.rt);
 	int64_t value = rs * rt;
-	registers.set_lo(value >> 32);
-	registers.set_hi((uint32_t)value);
+	registers.set_hi(value >> 32);
+	registers.set_lo((uint32_t)value);
+	cout << (value >> 32) << ' ' << (uint32_t)value << '\n';
 }
 
 void Computer::step_multu(Instruction instruction) {
@@ -396,8 +399,8 @@ void Computer::step_multu(Instruction instruction) {
 	uint32_t rs = registers.unsigned_get(instruction.rs);
 	uint32_t rt = registers.unsigned_get(instruction.rt);
 	uint64_t value = rs * rt;
-	registers.set_lo(value >> 32);
-	registers.set_hi((uint32_t)value);
+	registers.set_hi(value >> 32);
+	registers.set_lo((uint32_t)value);
 }
 
 void Computer::step_sra(Instruction instruction) {
