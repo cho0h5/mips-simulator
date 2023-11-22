@@ -1,4 +1,5 @@
 mod instruction;
+mod parser;
 
 use crate::instruction::Funct::*;
 use crate::instruction::RegisterName::*;
@@ -6,6 +7,8 @@ use crate::instruction::OpCode::*;
 use crate::instruction::Instruction::*;
 use crate::instruction::*;
 use crate::instruction::ConvertToBinary;
+
+use crate::parser::parse;
 
 fn write_binary_file(instructions: &[Instruction]) -> Result<(), std::io::Error> {
     use std::fs::File;
@@ -33,36 +36,8 @@ fn write_binary_file(instructions: &[Instruction]) -> Result<(), std::io::Error>
 }
 
 fn main() {
-    // RFormat::new(ZERO, A2, T0,  0, Slt)
-    let instructions = [
-        IFormat::new(Addi, ZERO, A0, 5),
-        JFormat::new(Jal, 10),
-        RFormat::new(Add, V0, ZERO, A0, 0),
-        IFormat::new(Addi, ZERO, V0, 1),
-        RFormat::new(Syscall, ZERO, ZERO, ZERO, 0),
-        IFormat::new(Addi, ZERO, A0, '\n' as i16),
-        IFormat::new(Addi, ZERO, V0, 11),
-        RFormat::new(Syscall, ZERO, ZERO, ZERO, 0),
-        IFormat::new(Addi, ZERO, V0, 10),
-        RFormat::new(Syscall, ZERO, ZERO, ZERO, 0),
-
-        IFormat::new(Addi, SP, SP, -8), // fact
-        IFormat::new(Sw, SP, RA, 4),
-        IFormat::new(Sw, SP, A0, 0),
-        IFormat::new(Slti, A0, T0, 1),
-        IFormat::new(Beq, ZERO, T0, 3),
-        IFormat::new(Addi, ZERO, V0, 1),
-        IFormat::new(Addi, SP, SP, 8),
-        RFormat::new(Jr, RA, ZERO, ZERO, 0),
-        IFormat::new(Addi, A0, A0, -1), // L1
-        JFormat::new(Jal, 10),
-        IFormat::new(Lw, SP, A0, 0),
-        IFormat::new(Lw, SP, RA, 4),
-        IFormat::new(Addi, SP, SP, 8),
-        RFormat::new(Mult, A0, V0, ZERO, 0),
-        RFormat::new(Mflo, ZERO, ZERO, V0, 0),
-        RFormat::new(Jr, RA, ZERO, ZERO, 0),
-    ];
+    let filename = std::env::args().nth(1).expect("no filename");
+    let instructions = parse(&filename);
 
     println!("write binary file");
     println!("--------");
