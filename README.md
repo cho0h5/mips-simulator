@@ -1,3 +1,6 @@
+# MIPS Simulator
+![demo image](img/demo.png)
+
 # Build and Execute
 ## Build
 ```sh
