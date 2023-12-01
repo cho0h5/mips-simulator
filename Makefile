@@ -1,6 +1,6 @@
 NAME = mipsvm
 CC = g++
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 SRCS = src/main.cpp src/memory.cpp src/computer.cpp src/registers.cpp
 OBJS = $(SRCS:.cpp=.o)
 SRC_DIR = ./src
