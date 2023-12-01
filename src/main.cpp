@@ -9,19 +9,20 @@ int main(int argc, char **argv) {
   Memory *memory = new Memory;
 
   if (argc != 2) {
-    cout << "[error] you must input 1 file name\n";
+    cout << "\x1b[31m[error]\x1b[37m you must input 1 file name\n";
     return 0;
   }
 
   if (memory->load_program(argv[1])) {
-    cout << "[error] failed to load program\n";
+    cout << "\x1b[31m[error]\x1b[37m failed to load program\n";
+    return 0;
   }
-  cout << "[info] program loaded\n";
+  cout << "\x1b[32m[info]\x1b[37m program loaded\n";
 
   Computer computer(memory);
-  cout << "[info] start computer\n";
+  cout << "\x1b[32m[info]\x1b[37m start computer\n";
   computer.run();
-  cout << "[info] terminated\n";
+  cout << "\x1b[32m[info]\x1b[37m terminated\n";
 
   return 0;
 }
