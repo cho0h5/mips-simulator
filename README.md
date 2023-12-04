@@ -1,10 +1,4 @@
 # MIPS Simulator
-## Authors
-| Name | Student No. |
-|---|---|
-| 이규성 | 20204946 |
-| 이병구 | 20203436 |
-| 조영호 | 20203458 |
 
 ![demo image](img/demo.png)
 
@@ -29,3 +23,10 @@ You can test this virtual cpu with these test code.
 ## Test Environment
 - OS: macOS 14.0 arm64
 - g++: Apple clang version 15.0.0
+
+## Authors
+| Name | Student No. |
+|---|---|
+| 이규성 | 20204946 |
+| 이병구 | 20203436 |
+| 조영호 | 20203458 |
